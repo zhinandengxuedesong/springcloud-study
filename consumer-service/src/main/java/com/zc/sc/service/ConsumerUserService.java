@@ -5,6 +5,9 @@ import com.zc.sc.pojo.ConsumerUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @作者： zc
  * @时间： 2021/2/3 11:18
@@ -19,4 +22,5 @@ public class ConsumerUserService {
     public ConsumerUser queryUserByIdAll(Long id){
         return this.consumerUserDao.queryUserByIdOne(id);
     }
+
 }

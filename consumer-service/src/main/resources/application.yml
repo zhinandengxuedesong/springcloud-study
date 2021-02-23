@@ -2,6 +2,7 @@ server:
   port: 8082
   servlet:
     context-path: /cs
+
 spring:
   application:
     name: consumer-service # 应用名称
@@ -9,6 +10,7 @@ spring:
     loadbalancer:
       retry:
         enabled: true # 开启Spring Cloud的重试功能
+
 eureka:
   client:
     service-url: # EurekaServer地址,多个地址以','隔开
@@ -24,3 +26,11 @@ user-service:
     OkToRetryOnAllOperations: true # 是否对所有操作都进行重试
     MaxAutoRetriesNextServer: 1 # 切换实例的重试次数
     MaxAutoRetries: 1 # 对当前实例的重试次数
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMillisecond: 3000 # 设置 hystrix 的超时时间为3000ms

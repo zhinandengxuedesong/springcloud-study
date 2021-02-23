@@ -2,6 +2,8 @@ package com.zc.sc;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.SpringCloudApplication;
+import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
@@ -13,8 +15,10 @@ import org.springframework.web.client.RestTemplate;
  * @描述： 启动类，注册 spring RestTemplate
  */
 
-@EnableDiscoveryClient
-@SpringBootApplication
+//@EnableDiscoveryClient
+//@SpringBootApplication
+//@EnableCircuitBreaker
+@SpringCloudApplication // 相当于上面三个注解
 public class ConsumerApplication {
 
     public static void main(String[] args) {
