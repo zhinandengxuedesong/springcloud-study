@@ -1,0 +1,60 @@
+server:
+  port: 10010 #服务端口
+spring:
+  application:
+    name: api-gateway #指定服务名
+
+zuul:
+  retryable: true
+  prefix: /api # 添加路由前缀
+  routes:
+    user-service: # 这里是路由 id，随意写
+      path: /user/** # 这里是映射路径
+      service-id: user-service # 指定服务名称
+  strip-prefix: true # 只针对 user-serive 级别的前缀, 过滤掉 /user
+  ignored-services: consumer-service # 忽略的服务
+
+#zuul:
+#  routes:
+#    user-service: /user/**
+#      #path: /user-service/**
+#      #url: http://127.0.0.1:8081
+#    #serviceId: user-service
+#  ignored-services: consumer-service #忽略的服务
+
+#zuul:
+#  routes:
+#    hehe: # 这里是路由id，随意写
+#      path: /user-service/** # 这里是映射路径
+#      #url: http://127.0.0.1:8081
+#      serviceId: user-service # 指定服务名称
+
+# 简化路由id配置，与服务名称相同
+#zuul:
+#  routes:
+#    user-service: /user-service/** # 这里是映射路径
+
+eureka:
+  client:
+    registry-fetch-interval-seconds: 5 # 获取服务列表的周期：5s
+    service-url:
+      defaultZone: http://127.0.0.1:10086/eureka,http://127.0.0.1:10087/eureka
+  instance:
+    prefer-ip-address: true
+    ip-address: 127.0.0.1
+
+
+ribbon:
+  ConnectTimeout: 250 # 连接超时时间(ms)
+  ReadTimeout: 2000 # 通信超时时间(ms)
+  OkToRetryOnAllOperations: true # 是否对所有操作重试
+  MaxAutoRetriesNextServer: 2 # 同一服务不同实例的重试次数
+  MaxAutoRetries: 1 # 同一实例的重试次数
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMillisecond: 6000 # 熔断超时时长：6000ms
