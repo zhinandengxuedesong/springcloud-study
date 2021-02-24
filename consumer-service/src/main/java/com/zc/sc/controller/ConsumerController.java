@@ -3,6 +3,7 @@ package com.zc.sc.controller;
 import com.netflix.hystrix.contrib.javanica.annotation.DefaultProperties;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
+import com.zc.sc.client.ConsumerUserClient;
 import com.zc.sc.pojo.ConsumerUser;
 import com.zc.sc.service.ConsumerUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,16 +17,19 @@ import org.springframework.web.client.RestTemplate;
  */
 @RestController // 相当于 @Controller 和 @ResponseBody
 @RequestMapping("consumer")
-@DefaultProperties(defaultFallback = "defaultFallback")
+//@DefaultProperties(defaultFallback = "defaultFallback")
 public class ConsumerController {
-//    @Autowired
-//    private ConsumerUserService consumerUserService;
-//
-//    @GetMapping("{id}")
-//    public ConsumerUser queryUserById(@PathVariable("id") Long id) {
-//        return this.consumerUserService.queryUserByIdAll(id);
-//    }
+/*
+    @Autowired
+    private ConsumerUserService consumerUserService;
 
+    @GetMapping("{id}")
+    public ConsumerUser queryUserById(@PathVariable("id") Long id) {
+        return this.consumerUserService.queryUserByIdAll(id);
+    }
+*/
+
+/*
     @Autowired
     private RestTemplate restTemplate;
 
@@ -48,9 +52,22 @@ public class ConsumerController {
         String url = "http://user-service/us/user/" + id;
         String user = restTemplate.getForObject(url, String.class);
         return user;
+    }*/
+
+
+    @Autowired
+    private ConsumerUserClient userClient;
+
+    @GetMapping("{id}")
+    //@HystrixCommand  注意：如果开启了feign的熔断机制之后，在controller中就不要使用Hystrix注解容易冲突
+    public ConsumerUser queryById(@PathVariable("id") Long id) {
+        return  userClient.queryUserById(id);
     }
 
+/*
     public String defaultFallback() {
-        return "抱歉，服务器很忙！";
+        return  "用户信息查询出现异常";
     }
+*/
+
 }

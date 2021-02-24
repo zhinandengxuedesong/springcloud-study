@@ -22,7 +22,7 @@ public class ConsumerUserDao {
 
     private static final Logger logger = LoggerFactory.getLogger(ConsumerUserDao.class);
 
-    @Autowired
+//    @Autowired
     private RestTemplate restTemplate;
 
 /*

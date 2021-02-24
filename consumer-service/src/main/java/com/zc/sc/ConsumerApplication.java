@@ -6,6 +6,7 @@ import org.springframework.cloud.client.SpringCloudApplication;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
@@ -19,6 +20,7 @@ import org.springframework.web.client.RestTemplate;
 //@SpringBootApplication
 //@EnableCircuitBreaker
 @SpringCloudApplication // 相当于上面三个注解
+@EnableFeignClients // 开启feign
 public class ConsumerApplication {
 
     public static void main(String[] args) {
@@ -33,10 +35,13 @@ public class ConsumerApplication {
     }
 */
 
+/*
     @Bean
     @LoadBalanced
     public RestTemplate restTemplate() {
         // 这次我们使用了OkHttp客户端,只需要注入工厂即可
         return new RestTemplate();
     }
+*/
+
 }
